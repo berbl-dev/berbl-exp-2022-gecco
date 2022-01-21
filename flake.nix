@@ -8,10 +8,12 @@
   };
   # TODO inputs.berbl.url = "github:dpaetzel/berbl-exp";
 
-  outputs = { self, nixpkgs, berbl-exp }: {
+  inputs.overlays.url = "github:dpaetzel/overlays";
 
+  outputs = { self, nixpkgs, berbl-exp, overlays }: rec {
     defaultPackage.x86_64-linux =
       with import nixpkgs { system = "x86_64-linux"; };
+
       let python = python39;
       in python.pkgs.buildPythonPackage rec {
         pname = "berbl-exp-2022-evostar";
@@ -35,3 +37,6 @@
       };
   };
 }
+# TODO Maybe put export Python version from overlays so we can sync it
+# automatedly (currently I have to put python = python39 everywhere, better
+# would be something like python = overlay.python or similar).

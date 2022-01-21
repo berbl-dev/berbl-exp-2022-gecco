@@ -1,0 +1,10 @@
+#!/usr/bin/env fish
+
+
+cd $argv[1]
+
+
+set -x PYTHONPATH src:$PYTHONPATH
+
+
+python run.py $argv[2..-1]
