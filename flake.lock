@@ -23,7 +23,7 @@
         "xcsf": "xcsf"
       },
       "locked": {
-        "narHash": "sha256-+JXWoi2mkTQN+n9AMQBd6XTEvsk14gQgo7xfXE21aWA=",
+        "narHash": "sha256-NyYK6BBLiYOHklxqrNwEE/PBUQlVWUTWpDG4dF5Kx1A=",
         "path": "/home/david/Projekte/berbl/berbl-exp",
         "type": "path"
       },
@@ -113,11 +113,11 @@
     },
     "overlays_2": {
       "locked": {
-        "lastModified": 1642696974,
-        "narHash": "sha256-FsCi7tTaLUAjU731Dax7snjyrXm8WcYepl4SduTd8Xs=",
+        "lastModified": 1642778105,
+        "narHash": "sha256-NxBVNiO1VpCFV3rjctz9nEXCLbkXjI/Ucjsf2VTqD7A=",
         "owner": "dpaetzel",
         "repo": "overlays",
-        "rev": "55735b0f0303437771933e7e70147fca2666dfb1",
+        "rev": "b6adb13c98648aa24d039df95e913c77bd568562",
         "type": "github"
       },
       "original": {
@@ -128,11 +128,11 @@
     },
     "overlays_3": {
       "locked": {
-        "lastModified": 1642696974,
-        "narHash": "sha256-FsCi7tTaLUAjU731Dax7snjyrXm8WcYepl4SduTd8Xs=",
+        "lastModified": 1642778105,
+        "narHash": "sha256-NxBVNiO1VpCFV3rjctz9nEXCLbkXjI/Ucjsf2VTqD7A=",
         "owner": "dpaetzel",
         "repo": "overlays",
-        "rev": "55735b0f0303437771933e7e70147fca2666dfb1",
+        "rev": "b6adb13c98648aa24d039df95e913c77bd568562",
         "type": "github"
       },
       "original": {
