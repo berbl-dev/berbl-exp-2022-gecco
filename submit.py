@@ -4,6 +4,7 @@ import shutil
 import tempfile
 from subprocess import PIPE, Popen
 from time import sleep
+from datetime import datetime
 
 import mlflow
 import click
@@ -63,6 +64,9 @@ def submit(node,
     os.makedirs("output", exist_ok=True)
     os.makedirs("jobs", exist_ok=True)
 
+    datetime_ = datetime.now()
+    results_dir = f"{str(datetime_)}-results"
+
     njobs = n_reps * n_data_sets
 
     standardize_option = '--standardize' if standardize else '--no-standardize'
@@ -72,7 +76,7 @@ def submit(node,
         f'#SBATCH --time={time}',
         f'#SBATCH --mem={mem}',
         f'#SBATCH --partition=cpu',
-        f'#SBATCH --output={job_dir}/output/output-%A-%a.txt',
+        f'#SBATCH --output={job_dir}/{results_dir}/output/output-%A-%a.txt',
         f'#SBATCH --array=0-{njobs - 1}',
         (
             # provide job_dir to create the environment
@@ -86,7 +90,7 @@ def submit(node,
             f'--seed=$(({seed0} + $SLURM_ARRAY_TASK_ID / {n_data_sets})) '
             f'--data-seed=$(({data_seed0} + $SLURM_ARRAY_TASK_ID % {n_data_sets})) '
             '--run-name=${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID} '
-            f'--tracking-uri={tracking_uri} '
+            f'--tracking-uri={results_dir}/{tracking_uri} '
             f'{params}\n')
     ])
     print(sbatch)
