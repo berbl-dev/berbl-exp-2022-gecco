@@ -61,11 +61,10 @@ def submit(node,
     Submit one ``single(…)`` job to the cluster for each repetition.
     """
     job_dir = os.getcwd()
-    os.makedirs("output", exist_ok=True)
-    os.makedirs("jobs", exist_ok=True)
-
     datetime_ = datetime.now()
     results_dir = f"{str(datetime_)}-results"
+    os.makedirs(f"{results_dir}/output", exist_ok=True)
+    os.makedirs(f"{results_dir}/jobs", exist_ok=True)
 
     njobs = n_reps * n_data_sets
 
@@ -90,7 +89,7 @@ def submit(node,
             f'--seed=$(({seed0} + $SLURM_ARRAY_TASK_ID / {n_data_sets})) '
             f'--data-seed=$(({data_seed0} + $SLURM_ARRAY_TASK_ID % {n_data_sets})) '
             '--run-name=${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID} '
-            f'--tracking-uri={results_dir}/{tracking_uri} '
+            f'--tracking-uri="{results_dir}/{tracking_uri}" '
             f'{params}\n')
     ])
     print(sbatch)
