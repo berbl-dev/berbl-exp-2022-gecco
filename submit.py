@@ -53,6 +53,8 @@ def submit(node,
            algorithm,
            module,
            standardize,
+           job_dir,
+           results_dir,
            tracking_uri,
            params="",
            n_reps=5,
@@ -60,11 +62,6 @@ def submit(node,
     """
     Submit one ``single(…)`` job to the cluster for each repetition.
     """
-    job_dir = os.getcwd()
-    datetime_ = datetime.now()
-    results_dir = f"{str(datetime_)}-results"
-    os.makedirs(f"{results_dir}/output", exist_ok=True)
-    os.makedirs(f"{results_dir}/jobs", exist_ok=True)
 
     njobs = n_reps * n_data_sets
 
@@ -75,7 +72,7 @@ def submit(node,
         f'#SBATCH --time={time}',
         f'#SBATCH --mem={mem}',
         f'#SBATCH --partition=cpu',
-        f'#SBATCH --output="{job_dir}/{results_dir}/output/output-%A-%a.txt"',
+        f'#SBATCH --output="{results_dir}/output/output-%A-%a.txt"',
         f'#SBATCH --array=0-{njobs - 1}',
         (
             # NOTE `nixx` is the nix command with enabled flake support on the
@@ -113,7 +110,7 @@ def submit(node,
     print(f"Job ID: {jobid}")
     print()
 
-    sbatch_dir = f"{job_dir}/jobs"
+    sbatch_dir = f"{results_dir}/jobs"
     os.makedirs(sbatch_dir, exist_ok=True)
     tmppath = pathlib.Path(tmp.name)
     fname = pathlib.Path(sbatch_dir, f"{jobid}.sbatch")
@@ -148,12 +145,20 @@ def slurm(node, time, mem, tracking_uri):
         mlflow.set_experiment(experiment_name("xcsf", module))
         sleep(0.5)
 
+    job_dir = os.getcwd()
+    datetime_ = datetime.now()
+    results_dir = f"{job_dir}/{str(datetime_)}-results"
+    os.makedirs(f"{results_dir}/output", exist_ok=True)
+    os.makedirs(f"{results_dir}/jobs", exist_ok=True)
+
     for module in berbl_experiments:
         submit(node,
                time,
                mem,
                "berbl",
                module,
+               job_dir=job_dir,
+               results_dir=results_dir,
                standardize=False,
                tracking_uri=tracking_uri,
                n_reps=10)
@@ -162,6 +167,8 @@ def slurm(node, time, mem, tracking_uri):
                mem,
                "berbl",
                module,
+               job_dir=job_dir,
+               results_dir=results_dir,
                standardize=True,
                tracking_uri=tracking_uri,
                n_reps=10)
@@ -171,6 +178,8 @@ def slurm(node, time, mem, tracking_uri):
                mem,
                "xcsf",
                module,
+               job_dir=job_dir,
+               results_dir=results_dir,
                standardize=True,
                tracking_uri=tracking_uri,
                n_reps=10)
@@ -205,6 +214,8 @@ def slurm1(node, algorithm, module, time, mem, standardize, tracking_uri):
            mem,
            algorithm,
            module,
+           job_dir=job_dir,
+           results_dir=results_dir,
            standardize=standardize,
            tracking_uri=tracking_uri)
 
@@ -245,6 +256,8 @@ def paramsearch(node, time, mem, tracking_uri):
                    mem,
                    "xcsf",
                    module,
+                   job_dir=job_dir,
+                   results_dir=results_dir,
                    standardize=True,
                    tracking_uri=tracking_uri,
                    params=make_param_string(params),
