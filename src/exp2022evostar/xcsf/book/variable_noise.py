@@ -1,4 +1,4 @@
-from .. import default_xcs_params
+from experiments.xcsf import default_xcs_params
 
 task = "book.variable_noise"
 
