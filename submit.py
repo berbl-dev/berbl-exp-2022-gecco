@@ -146,8 +146,8 @@ def slurm(node, time, mem, tracking_uri):
         sleep(0.5)
 
     job_dir = os.getcwd()
-    datetime_ = datetime.now()
-    results_dir = f"{job_dir}/{str(datetime_)}-results"
+    datetime_ = datetime.now().isoformat()
+    results_dir = f"{job_dir}/results/{datetime_}"
     os.makedirs(f"{results_dir}/output", exist_ok=True)
     os.makedirs(f"{results_dir}/jobs", exist_ok=True)
 
