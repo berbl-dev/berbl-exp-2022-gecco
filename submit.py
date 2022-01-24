@@ -78,7 +78,7 @@ def submit(node,
             # provide job_dir to create the environment
             f'nix develop "{job_dir}" --command '
             # provide job_dir to add job_dir/src to PYTHONPATH
-            f'run "{job_dir}" '
+            f'./run "{job_dir}" '
             f'{algorithm} '
             f'{module} '
             f'{standardize_option} '
@@ -87,7 +87,7 @@ def submit(node,
             f'--data-seed=$(({data_seed0} + $SLURM_ARRAY_TASK_ID % {n_data_sets})) '
             '--run-name=${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID} '
             f'--tracking-uri={tracking_uri} '
-            f'{params}"\n')
+            f'{params}\n')
     ])
     print(sbatch)
     print()
