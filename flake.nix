@@ -1,7 +1,9 @@
 {
   description = "berbl-exp-2022-evostar";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  # 2022-01-24
+  inputs.nixpkgs.url =
+    "github:NixOS/nixpkgs/8ca77a63599ed951d6a2d244c1d62092776a3fe1";
   inputs.berbl-exp = {
     type = "path";
     path = "/home/david/Projekte/berbl/berbl-exp";
