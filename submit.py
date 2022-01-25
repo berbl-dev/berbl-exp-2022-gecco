@@ -248,6 +248,8 @@ def paramsearch(node, time, mem, tracking_uri):
         mlflow.set_experiment(experiment_name("xcsf", module))
         sleep(0.5)
 
+    from exp2022evostar.xcsf.parameter_search import param_grid
+
     for module in xcsf_experiments:
         sleep(5)
         for params in param_grid:
