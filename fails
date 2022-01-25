@@ -1,0 +1,11 @@
+#!/usr/bin/env fish
+
+
+set jobs (sac $argv | grep "cpu.*FAIL" | cut -f 3 -d" ")
+echo
+echo (count $jobs) jobs failed.
+echo
+for j in $jobs
+  set jj (echo $j | sed "s|_|-|")
+  find results/*/output -iname "output-$jj.txt" -exec cat '{}' ';'
+end
