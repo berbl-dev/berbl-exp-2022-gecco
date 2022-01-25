@@ -42,6 +42,15 @@ xcsf_experiments = [
 ]
 
 
+def get_dirs():
+    job_dir = os.getcwd()
+    datetime_ = datetime.now().isoformat()
+    results_dir = f"{job_dir}/results/{datetime_}"
+    os.makedirs(f"{results_dir}/output", exist_ok=True)
+    os.makedirs(f"{results_dir}/jobs", exist_ok=True)
+    return job_dir, results_dir
+
+
 @click.group()
 def main():
     pass
@@ -145,11 +154,7 @@ def slurm(node, time, mem, tracking_uri):
         mlflow.set_experiment(experiment_name("xcsf", module))
         sleep(0.5)
 
-    job_dir = os.getcwd()
-    datetime_ = datetime.now().isoformat()
-    results_dir = f"{job_dir}/results/{datetime_}"
-    os.makedirs(f"{results_dir}/output", exist_ok=True)
-    os.makedirs(f"{results_dir}/jobs", exist_ok=True)
+    job_dir, results_dir = get_dirs()
 
     for module in berbl_experiments:
         submit(node,
@@ -209,6 +214,8 @@ def slurm1(node, algorithm, module, time, mem, standardize, tracking_uri):
     """
     Submits a single experiment (running ALGORITHM on task MODULE) to NODE.
     """
+    job_dir, results_dir = get_dirs()
+
     submit(node,
            time,
            mem,
@@ -247,6 +254,8 @@ def paramsearch(node, time, mem, tracking_uri):
     for module in xcsf_experiments:
         mlflow.set_experiment(experiment_name("xcsf", module))
         sleep(0.5)
+
+    job_dir, results_dir = get_dirs()
 
     from exp2022evostar.xcsf.parameter_search import param_grid
 
