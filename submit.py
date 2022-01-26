@@ -233,7 +233,6 @@ def make_param_string(params):
             f"--beta={params['BETA']}")
 
 
-# TODO Add sequential command for this, too
 @click.command()
 @click.argument("NODE")
 @click.option("-t",
@@ -257,6 +256,7 @@ def paramsearch(node, time, mem, tracking_uri):
 
     job_dir, results_dir = get_dirs()
 
+    # TODO Can we get rid of the dependency on that module?
     from exp2022evostar.xcsf.parameter_search import param_grid
 
     for module in xcsf_experiments:
@@ -281,61 +281,3 @@ main.add_command(slurm1)
 
 if __name__ == "__main__":
     main()
-
-# TODO Add local sequential run
-# def local(algorithm,
-#           module,
-#           standardize,
-#           tracking_uri,
-#           params="",
-#           n_reps=5,
-#           n_data_sets=5):
-
-#     job_dir = os.getcwd()
-#     os.makedirs("output", exist_ok=True)
-#     os.makedirs("jobs", exist_ok=True)
-
-#     njobs = n_reps * n_data_sets
-
-#     standardize_option = '--standardize' if standardize else '--no-standardize'
-#     script = "\n".join([
-#         f'#!/usr/bin/env bash',  #
-#         # TODO Transform this into for loop
-#         f'#SBATCH --array=0-{njobs - 1}',
-#         (
-#             f'nix-shell "{job_dir}/shell.nix" --command '
-#             f'"PYTHONPATH=\'{job_dir}/src:$PYTHONPATH\' '
-#             f'python -m run single {algorithm} {module} '
-#             f'{standardize_option} '
-#             # NOTE / is integer division in bash.
-#             f'--seed=$(({seed0} + $SLURM_ARRAY_TASK_ID / {n_data_sets})) '
-#             f'--data-seed=$(({data_seed0} + $SLURM_ARRAY_TASK_ID % {n_data_sets})) '
-#             '--run-name=${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID} '
-#             f'--tracking-uri={tracking_uri} '
-#             f'{params}"\n')
-#     ])
-#     print(sbatch)
-#     print()
-
-#     tmp = tempfile.NamedTemporaryFile()
-#     with open(tmp.name, "w+") as f:
-#         f.write(sbatch)
-#     print(f"Wrote sbatch to {tmp.name}.")
-#     print()
-
-#     p = Popen(["sbatch", f"{tmp.name}"], stdout=PIPE, stdin=PIPE, stderr=PIPE)
-#     output = p.communicate()
-#     stdout = output[0].decode("utf-8")
-#     stderr = output[1].decode("utf-8")
-#     print(f"stdout:\n{stdout}\n")
-#     print(f"stderr:\n{stderr}\n")
-#     jobid = int(stdout.replace("Submitted batch job ", ""))
-#     print(f"Job ID: {jobid}")
-#     print()
-
-#     sbatch_dir = f"{job_dir}/jobs"
-#     os.makedirs(sbatch_dir, exist_ok=True)
-#     tmppath = pathlib.Path(tmp.name)
-#     fname = pathlib.Path(sbatch_dir, f"{jobid}.sbatch")
-#     shutil.copy(tmppath, fname)
-#     print(f"Renamed {tmp.name} to {fname}")
