@@ -34,6 +34,15 @@ berbl_experiments = [
     "additional_non_literal.generated_function",
     "additional_non_literal.sparse_noisy_data",
 ]
+# Book experiments don't use standardized data, we do all standardized as
+# well. Need new experiment modules for standardized inputs because we have
+# to adjust input bounds in the existing ones.
+berbl_experiments_standardized = [
+    "standardized.generated_function",
+    "standardized.sparse_noisy_data",
+    "book.sine",
+    "book.variable_noise",
+]
 xcsf_experiments = [
     "book.generated_function",
     "book.sparse_noisy_data",
@@ -168,6 +177,7 @@ def slurm(node, time, mem, tracking_uri):
                tracking_uri=tracking_uri,
                n_reps=10,
                n_data_sets=10)
+    for module in berbl_experiments_standardized:
         submit(node,
                time,
                mem,
