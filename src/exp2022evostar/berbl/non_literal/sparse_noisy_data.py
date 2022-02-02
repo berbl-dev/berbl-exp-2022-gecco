@@ -7,4 +7,7 @@ params = {
     "match": "radial",
     "literal": False,
     "fit_mixing": "laplace",
+    "match_args": {
+        "input_bounds": (0, 4)
+    }
 }

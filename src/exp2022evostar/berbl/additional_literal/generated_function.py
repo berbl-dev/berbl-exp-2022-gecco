@@ -7,4 +7,7 @@ params = {
     "match": "softint",
     "literal": True,
     "fit_mixing": "laplace",
+    "match_args": {
+        "input_bounds": (0, 1)
+    }
 }
