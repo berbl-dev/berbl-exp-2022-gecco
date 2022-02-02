@@ -166,7 +166,8 @@ def slurm(node, time, mem, tracking_uri):
                results_dir=results_dir,
                standardize=False,
                tracking_uri=tracking_uri,
-               n_reps=30)
+               n_reps=10,
+               n_data_sets=10)
         submit(node,
                time,
                mem,
@@ -176,7 +177,8 @@ def slurm(node, time, mem, tracking_uri):
                results_dir=results_dir,
                standardize=True,
                tracking_uri=tracking_uri,
-               n_reps=30)
+               n_reps=10,
+               n_data_sets=10)
     for module in xcsf_experiments:
         submit(node,
                time,
@@ -187,7 +189,8 @@ def slurm(node, time, mem, tracking_uri):
                results_dir=results_dir,
                standardize=True,
                tracking_uri=tracking_uri,
-               n_reps=30)
+               n_reps=10,
+               n_data_sets=10)
 
 
 @click.command()
