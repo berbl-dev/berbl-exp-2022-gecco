@@ -89,7 +89,7 @@ def submit(node,
         f'#SBATCH --nodelist={node}',
         f'#SBATCH --time={time}',
         f'#SBATCH --mem={mem}',
-        f'#SBATCH --partition=cpu',
+        f'#SBATCH --partition=cpu-prio',
         f'#SBATCH --output="{results_dir}/output/output-%A-%a.txt"',
         f'#SBATCH --array=0-{njobs - 1}',
         (
@@ -176,7 +176,7 @@ def slurm(node, time, mem, tracking_uri):
                standardize=False,
                tracking_uri=tracking_uri,
                n_reps=10,
-               n_data_sets=10)
+               n_data_sets=5)
     for module in berbl_experiments_standardized:
         submit(node,
                time,
@@ -188,7 +188,7 @@ def slurm(node, time, mem, tracking_uri):
                standardize=True,
                tracking_uri=tracking_uri,
                n_reps=10,
-               n_data_sets=10)
+               n_data_sets=5)
     for module in xcsf_experiments:
         submit(node,
                time,
@@ -200,7 +200,7 @@ def slurm(node, time, mem, tracking_uri):
                standardize=True,
                tracking_uri=tracking_uri,
                n_reps=10,
-               n_data_sets=10)
+               n_data_sets=5)
 
 
 @click.command()
