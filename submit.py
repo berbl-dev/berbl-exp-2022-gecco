@@ -93,10 +93,8 @@ def submit(node,
         f'#SBATCH --output="{results_dir}/output/output-%A-%a.txt"',
         f'#SBATCH --array=0-{njobs - 1}',
         (
-            # NOTE `nixx` is the nix command with enabled flake support on the
-            # servers.
             # provide job_dir to create the environment
-            f'nixx develop "{job_dir}" --command '
+            f'nix develop "{job_dir}" --command '
             # provide job_dir to add job_dir/src to PYTHONPATH
             f'./run "{job_dir}" '
             f'{algorithm} '
