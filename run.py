@@ -37,6 +37,7 @@ from exp2022evostar.xcsf.parameter_search import param_grid
 # experiments
 @click.option("--fit-mix", type=str, default=None)
 @click.option("--literal/--no-literal", type=bool, default=False)
+@click.option("--a-beta", type=float, default=1e-2)
 # TODO add proper default value here, then get rid of if value is None in
 # experiments
 @click.option("--match", type=str, default=None)
@@ -47,8 +48,8 @@ from exp2022evostar.xcsf.parameter_search import param_grid
 @click.option("--run-name", type=str, default=None)
 @click.option("--tracking-uri", type=str, default="mlruns")
 def main(algorithm, module, n_iter, seed, data_seed, show, standardize,
-         fit_mix, literal, match, pop_size, epsilon_zero, beta, run_name,
-         tracking_uri):
+         fit_mix, literal, a_beta, match, pop_size, epsilon_zero, beta,
+         run_name, tracking_uri):
     """
     Use ALGORITHM ("berbl" or "xcsf") in an experiment defined by MODULE
     (module path appended to "experiments.ALGORITHM.").
@@ -70,7 +71,8 @@ def main(algorithm, module, n_iter, seed, data_seed, show, standardize,
         exp.run(n_iter=n_iter,
                 match=match,
                 literal=literal,
-                fit_mixing=fit_mix)
+                fit_mixing=fit_mix,
+                A_BETA=a_beta)
     elif algorithm == "xcsf":
         exp = XCSFExperiment(module,
                              seed=seed,
