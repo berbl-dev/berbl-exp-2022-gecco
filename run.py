@@ -33,8 +33,12 @@ from exp2022evostar.xcsf.parameter_search import param_grid
               default=False,
               show_default=True)
 # only applicable to berbl
+# TODO add proper default value here, then get rid of if value is None in
+# experiments
 @click.option("--fit-mix", type=str, default=None)
-@click.option("--literal/--no-literal", type=bool, default=None)
+@click.option("--literal/--no-literal", type=bool, default=False)
+# TODO add proper default value here, then get rid of if value is None in
+# experiments
 @click.option("--match", type=str, default=None)
 # only applicable to XCSF
 @click.option("-p", "--pop-size", type=click.IntRange(min=1), default=100)
