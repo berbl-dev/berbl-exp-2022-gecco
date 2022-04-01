@@ -9,9 +9,8 @@ from experiments import experiment_name
 
 from slurm import get_dirs, submit
 
+# Only soft interval matching experiments.
 berbl_experiments = [
-    "non_literal.generated_function",
-    "non_literal.sparse_noisy_data",
     "non_literal.sine",
     "non_literal.variable_noise",
     "additional_non_literal.generated_function",
@@ -24,12 +23,12 @@ berbl_experiments = [
 @click.option("-t",
               "--time",
               type=click.IntRange(min=10),
-              default=120,
+              default=240,
               help="Slurm's --time in minutes.",
               show_default=True)
 @click.option("--mem",
               type=click.IntRange(min=1),
-              default=1000,
+              default=2000,
               help="Slurm's --mem in megabytes.",
               show_default=True)
 @click.option("--tracking-uri", type=str, default="mlruns")
@@ -47,7 +46,7 @@ def main(node, time, mem, tracking_uri):
     job_dir, results_dir = get_dirs()
 
     for module in berbl_experiments:
-        for a_beta in [1e-2, 1e-1, 2e-2, 0.5, 1]:
+        for a_beta in [0.01, 0.1, 0.2, 0.51, 0.8, 1, 2, 3, 5, 10, 20, 50]:
             submit(
                 node,
                 time,
@@ -58,7 +57,7 @@ def main(node, time, mem, tracking_uri):
                 results_dir=results_dir,
                 standardize=False,
                 tracking_uri=tracking_uri,
-                n_reps=5,
+                n_reps=10,
                 n_data_sets=5,
                 params=f"--a-beta={a_beta}",
             )
