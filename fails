@@ -4,6 +4,7 @@
 set jobs (sac $argv | grep "cpu.*FAIL" | cut -f 3 -d" ")
 echo
 echo (count $jobs) jobs failed.
+echo $jobs
 echo
 for j in $jobs
   set jj (echo $j | sed "s|_|-|")
