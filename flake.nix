@@ -1,20 +1,15 @@
 {
   description = "berbl-exp-2022-evostar";
 
-  # 2022-01-24
-  inputs.nixpkgs.url =
-    "github:NixOS/nixpkgs/8ca77a63599ed951d6a2d244c1d62092776a3fe1";
   inputs.berbl-exp = {
     type = "path";
     path = "/home/david/Projekte/berbl/berbl-exp";
   };
   # TODO inputs.berbl.url = "github:dpaetzel/berbl-exp";
 
-  inputs.overlays.url = "github:dpaetzel/overlays";
-
-  outputs = { self, nixpkgs, berbl-exp, overlays }: rec {
+  outputs = { self, berbl-exp }: rec {
     defaultPackage.x86_64-linux =
-      with import nixpkgs { system = "x86_64-linux"; };
+      with import berbl-exp.inputs.berbl.inputs.nixpkgs { system = "x86_64-linux"; };
 
       let python = python39;
       in python.pkgs.buildPythonPackage rec {
