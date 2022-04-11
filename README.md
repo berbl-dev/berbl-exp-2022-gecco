@@ -1,4 +1,11 @@
-# Running the experiments
+# BERBL experiments for the 2022 GECCO paper
+
+
+Code for repeating the experiments that were conducted for [this
+paper](https://doi.org/10.1145/3512290.3528736).
+
+
+## How to run the experiments
 
 
 1. Install
@@ -19,11 +26,11 @@
    PYTHONPATH=src:$PYTHONPATH python submit.py paramsearch HOST
    ```
 
-   Note: This currently requires Slurm (see `submit.py`) a basic setup of which
-   is rather simple to set up on a single machine. You could also get around
-   using Slurm at all by writing custom `srun`/`sbatch` scripts that do not
-   perform calls to  Slurm but simply run their argument (however, be aware that
-   *a lot of processes may be spawned at once that way* if this is done too
+   Note: *This currently requires Slurm* (see `submit.py`) a basic setup of
+   which is rather simple to set up on a single machine. You could also get
+   around using Slurm at all by writing custom `srun`/`sbatch` scripts that do
+   not perform calls to  Slurm but simply run their argument (however, be aware
+   that *a lot of processes may be spawned at once that way* if this is done too
    naively).
 
 5. Optional: Enter parameter settings recommended by parameter study in
