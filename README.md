@@ -41,7 +41,8 @@ paper](https://doi.org/10.1145/3512290.3528736).
    ```bash
    PYTHONPATH=src:$PYTHONPATH python submit.py slurm HOST
    ```
-7. In order to evaluate the runs, see the `berbl-eval-2022-evostar` repository.
+7. In order to analyse the results, see [the berbl-eval-2022-gecco
+   repository](https://github.com/berbl-dev/berbl-eval-2022-gecco).
 
 
 <!-- Local Variables: -->
