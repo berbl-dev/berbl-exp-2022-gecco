@@ -1,11 +1,7 @@
 {
   description = "berbl-exp-2022-evostar";
 
-  inputs.berbl-exp = {
-    type = "path";
-    path = "/home/david/Projekte/berbl/berbl-exp";
-  };
-  # TODO inputs.berbl.url = "github:dpaetzel/berbl-exp";
+  inputs.berbl-exp.url = "github:berbl-dev/berbl-exp";
 
   outputs = { self, berbl-exp }: rec {
     defaultPackage.x86_64-linux =
