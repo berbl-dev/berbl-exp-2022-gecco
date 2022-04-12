@@ -268,7 +268,7 @@ def paramsearch(node, time, mem, tracking_uri):
     job_dir, results_dir = get_dirs()
 
     # TODO Can we get rid of the dependency on that module?
-    from exp2022evostar.xcsf.parameter_search import param_grid
+    from exp2022gecco.xcsf.parameter_search import param_grid
 
     for module in xcsf_experiments:
         sleep(5)

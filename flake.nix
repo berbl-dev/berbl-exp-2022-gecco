@@ -1,5 +1,5 @@
 {
-  description = "berbl-exp-2022-evostar";
+  description = "berbl-exp-2022-gecco";
 
   inputs.berbl-exp.url = "github:berbl-dev/berbl-exp";
 
@@ -9,7 +9,7 @@
 
       let python = python39;
       in python.pkgs.buildPythonPackage rec {
-        pname = "berbl-exp-2022-evostar";
+        pname = "berbl-exp-2022-gecco";
         version = "0.1.0";
 
         src = self;
@@ -21,12 +21,6 @@
           [ berbl-exp.defaultPackage.x86_64-linux ];
 
         doCheck = false;
-
-        meta = with lib; {
-          description =
-            "Experiments for the BERBL paper submitted to Evostar 2022";
-          license = licenses.gpl3;
-        };
       };
   };
 }

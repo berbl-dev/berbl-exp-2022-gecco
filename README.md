@@ -34,8 +34,7 @@ paper](https://doi.org/10.1145/3512290.3528736).
    naively).
 
 5. Optional: Enter parameter settings recommended by parameter study in
-   experiment configurations under `src/experiments/xcsf/book/`. To evaluate the
-   experiments conducted, use the `berbl-eval-2022-evostar` repository.
+   experiment configurations under `src/experiments/xcsf/book/`.
 6. Run the remaining experiments (requires Slurm as well, but see note regarding
    4.).
    ```bash

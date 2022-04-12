@@ -11,7 +11,7 @@ from experiments import experiment_name
 from experiments.berbl import BERBLExperiment
 from experiments.xcsf import XCSFExperiment
 
-from exp2022evostar.xcsf.parameter_search import param_grid
+from exp2022gecco.xcsf.parameter_search import param_grid
 
 
 @click.command()
@@ -67,7 +67,7 @@ def main(algorithm, module, n_iter, seed, data_seed, show, standardize,
                               show=show,
                               run_name=run_name,
                               tracking_uri=tracking_uri,
-                              exp_path_prefix="exp2022evostar")
+                              exp_path_prefix="exp2022gecco")
         exp.run(n_iter=n_iter,
                 match=match,
                 literal=literal,
@@ -81,7 +81,7 @@ def main(algorithm, module, n_iter, seed, data_seed, show, standardize,
                              show=show,
                              run_name=run_name,
                              tracking_uri=tracking_uri,
-                             exp_path_prefix="exp2022evostar")
+                             exp_path_prefix="exp2022gecco")
         exp.run(MAX_TRIALS=n_iter,
                 POP_SIZE=pop_size,
                 E0=epsilon_zero,
