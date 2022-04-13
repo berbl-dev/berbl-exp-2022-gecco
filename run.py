@@ -32,24 +32,11 @@ from exp2022gecco.xcsf.parameter_search import param_grid
               type=bool,
               default=False,
               show_default=True)
-# only applicable to berbl
-# TODO add proper default value here, then get rid of if value is None in
-# experiments
-@click.option("--fit-mix", type=str, default=None)
-@click.option("--literal/--no-literal", type=bool, default=False)
-@click.option("--a-beta", type=float, default=1e-2)
-# TODO add proper default value here, then get rid of if value is None in
-# experiments
-@click.option("--match", type=str, default=None)
-# only applicable to XCSF
-@click.option("-p", "--pop-size", type=click.IntRange(min=1), default=100)
-@click.option("--epsilon-zero", type=float, default=0.01)
-@click.option("--beta", type=float, default=0.01)
 @click.option("--run-name", type=str, default=None)
 @click.option("--tracking-uri", type=str, default="mlruns")
-def main(algorithm, module, n_iter, seed, data_seed, show, standardize,
-         fit_mix, literal, a_beta, match, pop_size, epsilon_zero, beta,
-         run_name, tracking_uri):
+# TODO Add generic way to override any of the experiment parameters here
+def main(algorithm, module, n_iter, seed, data_seed, show, run_name,
+         tracking_uri, standardize):
     """
     Use ALGORITHM ("berbl" or "xcsf") in an experiment defined by MODULE
     (module path appended to "experiments.ALGORITHM.").
@@ -68,11 +55,7 @@ def main(algorithm, module, n_iter, seed, data_seed, show, standardize,
                               run_name=run_name,
                               tracking_uri=tracking_uri,
                               exp_path_prefix="exp2022gecco")
-        exp.run(n_iter=n_iter,
-                match=match,
-                literal=literal,
-                fit_mixing=fit_mix,
-                A_BETA=a_beta)
+        exp.run()
     elif algorithm == "xcsf":
         exp = XCSFExperiment(module,
                              seed=seed,
@@ -82,10 +65,7 @@ def main(algorithm, module, n_iter, seed, data_seed, show, standardize,
                              run_name=run_name,
                              tracking_uri=tracking_uri,
                              exp_path_prefix="exp2022gecco")
-        exp.run(MAX_TRIALS=n_iter,
-                POP_SIZE=pop_size,
-                E0=epsilon_zero,
-                BETA=beta)
+        exp.run()
     else:
         print(f"Algorithm {algorithm} not one of [berbl, xcsf].")
 
