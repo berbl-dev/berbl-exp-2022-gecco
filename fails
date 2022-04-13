@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 
-set jobs (sac $argv | grep "cpu.*FAIL" | cut -f 3 -d" ")
+set jobs (sac $argv | grep -E "cpu.*(FAIL|TIMEOUT)" | cut -f 3 -d" ")
 echo
 echo (count $jobs) jobs failed.
 echo $jobs
